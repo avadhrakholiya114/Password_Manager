@@ -1,0 +1,214 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Add Password</h3>
+            <hr>
+
+            <form action="" method="post" class="shadow p-5" novalidate>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li
+                            class="alert alert-{{ message.tags }}">{{ message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% csrf_token %}
+
+                <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <input name="username" type="text" id="form3Example1c"
+                               class="form-control"/>
+                        <label class="form-label" for="form3Example1c">Username Or Email</label>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <input name="password" type="password" id="form3Example4c"
+                               class="form-control"/>
+                        <label class="form-label" for="form3Example4c">Password</label>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa fa-list-alt fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <select class="form-select " name="application_type" id="floatingInput"
+                                placeholder="Appliction type" onchange="addFields(this)">
+                            <option value="" selected disabled>Application type</option>
+                            <option value="Website">Website</option>
+                            <option value="Desktop Application">Desktop Application</option>
+                            <option value="Game">Game</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div id="input_field"></div>
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Add password</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+<!--$('#floatingInput').change(function(){-->
+<!--         let val=this.value-->
+
+<!--         let container = document.getElementById("input_field");-->
+
+
+<!--     if (val == "Website") {-->
+<!--         let div = document.createElement("div");-->
+<!--         div.innerHTML = `<div class="d-flex flex-row align-items-center mb-4">-->
+<!--                    <i class="fa fa-bars fa-lg me-3 fa-fw"></i>-->
+<!--                    <div class="form-outline flex-fill mb-0">-->
+<!--                        <input name="website_name" type="text" id="form3Example1c"-->
+<!--                               class="form-control"/>-->
+<!--                        <label class="form-label" for="form3Example1c">website_name</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="d-flex flex-row align-items-center mb-4">-->
+<!--                    <i class="fa fa-link fa-lg me-3 fa-fw"></i>-->
+<!--                    <div class="form-outline flex-fill mb-0">-->
+<!--                        <input name="website_url" type="text" id="form3Example1c"-->
+<!--                               class="form-control"/>-->
+<!--                        <label class="form-label" for="form3Example1c">website_url</label>-->
+<!--                    </div>-->
+<!--                </div> `;-->
+<!--      $('#input_field').append(div);-->
+<!--     }else if(val == "Desktop Application"){-->
+<!--        let div = document.createElement("div");-->
+<!--         div.innerHTML = `<div class="d-flex flex-row align-items-center mb-4">-->
+<!--                    <i class="fa fa-bars fa-lg me-3 fa-fw"></i>-->
+<!--                    <div class="form-outline flex-fill mb-0">-->
+<!--                        <input name="app_name" type="text" id="form3Example1c"-->
+<!--                               class="form-control"/>-->
+<!--                        <label class="form-label" for="form3Example1c">App_name</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                `;-->
+<!--                $('#input_field').append(div);-->
+<!--     }else if(val == "Game"){-->
+<!--        let div = document.createElement("div");-->
+<!--         div.innerHTML = `<div class="d-flex flex-row align-items-center mb-4">-->
+<!--                    <i class="fa fa-gamepad fa-lg me-3 fa-fw"></i>-->
+<!--                    <div class="form-outline flex-fill mb-0">-->
+<!--                        <input name="game_name" type="text" id="form3Example1c"-->
+<!--                               class="form-control"/>-->
+<!--                        <label class="form-label" for="form3Example1c">game_name</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                `;-->
+<!--                $('#input_field').append(div);-->
+<!--     }else{-->
+<!--     console.log("4")-->
+<!--     }-->
+
+
+<!--})-->
+
+function addFields(element) {
+    let value = element.value;
+    let container = document.getElementById("input_field");
+
+    while (container.hasChildNodes()) {
+      container.removeChild(container.lastChild);
+    }
+
+    if (value == "Website") {
+      let div = document.createElement("div");
+
+      div.innerHTML = `<div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fa fa-bars fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input name="website_name" type="text" id="form3Example1c"
+                                       class="form-control"/>
+                                <label class="form-label" for="form3Example1c">website_name</label>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fa fa-link fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input name="website_url" type="text" id="form3Example1c"
+                                       class="form-control"/>
+                                <label class="form-label" for="form3Example1c">website_url</label>
+                            </div>
+                        </div> `;
+      container.appendChild(div);
+    } else if (value == "Desktop Application") {
+      let div = document.createElement("div");
+
+      div.innerHTML = `<div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa fa-bars fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <input name="app_name" type="text" id="form3Example1c"
+                               class="form-control"/>
+                        <label class="form-label" for="form3Example1c">App_name</label>
+                    </div>
+                </div>
+                `;
+      container.appendChild(div);
+    } else if (value == "Game") {
+      let div = document.createElement("div");
+
+      div.innerHTML =`<div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa fa-gamepad fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <input name="game_name" type="text" id="form3Example1c"
+                               class="form-control"/>
+                        <label class="form-label" for="form3Example1c">game_name</label>
+                    </div>
+                </div>
+                `;
+      container.appendChild(div);
+    }
+    else if (value == "other") {
+      let div = document.createElement("div");
+
+      div.innerHTML =`<div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa fa-cog fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                        <input name="other" type="text" id="form3Example1c"
+                               class="form-control"/>
+                        <label class="form-label" for="form3Example1c">Write Name (Like bank pass,atm pass etc.....)</label>
+                    </div>
+                </div>
+                `;
+      container.appendChild(div);
+    }
+  }
+
+
+
+
+
+
+
+
+
+</script>
+
+{% endblock %}
+
+

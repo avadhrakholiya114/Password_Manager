@@ -4,6 +4,11 @@ from .forms import RegitrationForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from .utils import encrypt
+from .models import user_passsword
+
+
+# from django.contrib.auth.decorators import login_required
 
 
 # password
@@ -49,7 +54,39 @@ def login_user(request):
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
+
 def logout_user(request):
     logout(request)
     return redirect('/')
 
+
+def add_password(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = encrypt(request.POST['password'])
+        application_type = request.POST['application_type']
+        if application_type == "Website":
+            website_name = request.POST['website_name']
+            website_url = request.POST['website_url']
+            user_passsword.objects.create(user=request.user, username_or_email=username, password=password,
+                                          app_type=application_type, website_name=website_name, website_url=website_url)
+            messages.success(request, 'New password added...!')
+        elif application_type == "Desktop Application":
+            application_name = request.POST['app_name']
+            user_passsword.objects.create(user=request.user, username_or_email=username, password=password,
+                                          app_type=application_type, application_name=application_name)
+            messages.success(request, 'New password added...!')
+
+        elif application_type == "Game":
+            game_name = request.POST['game_name']
+            user_passsword.objects.create(user=request.user, username_or_email=username,
+                                          password=password, app_type=application_type, game_name=game_name)
+            messages.success(request, 'New password added...!')
+        elif application_type == "Other":
+            other = request.POST['other']
+            user_passsword.objects.create(user=request.user, username_or_email=username,
+                                          password=password, app_type=application_type, other_name=other)
+            messages.success(request, 'New password added...!')
+        return render(request, 'add_pass.html')
+
+    return render(request, 'add_pass.html')
