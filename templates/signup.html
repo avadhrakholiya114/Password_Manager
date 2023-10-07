@@ -22,7 +22,7 @@
                 </div>
                 {% endfor %}
                 {% endif %}
-                <form action="" method="post" class="">
+                <form action="" method="POST" class="">
                     {% csrf_token %}
                     <div class="form-floating mb-3">
                         {{form.username}}
@@ -51,7 +51,7 @@
                         <p class="text-center fw-bold mx-3 mb-0 text-muted">Already have an account?</p>
                     </div>
                 </form>
-                <a href="" class="btn btn-primary col-12 py-2">Login</a>
+                <a href="{% url 'home:login' %}" class="btn btn-primary col-12 py-2">Login</a>
             </div>
         </div>
     </div>

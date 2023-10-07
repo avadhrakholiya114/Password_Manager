@@ -31,3 +31,20 @@ class RegitrationForm(UserCreationForm):
         }
 
 
+
+# login form
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        label='Username',
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Username'}
+        ),
+    )
+    password = forms.CharField(
+        label='Password',
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'Password'}
+        ),
+    )
+
