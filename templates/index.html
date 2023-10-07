@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,7 +16,9 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
     <div class="container-fluid">
-        <a class="navbar-brand" style=" font-family: 'Sofia';font-size: 28px;color:red" href="#">Password Manager</a>
+        <div class="logo me-3">
+                <img src="{% static '/images/logo.jpg' %}" style="hight:80px;width:80px;" alt="PassWord Manger" class="rounded-circle">
+            </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,6 +36,11 @@
         </ul>
     </div>
 </nav>
+
+  <div class="container mt-1">
+        {% block body %}
+        {% endblock %}
+    </div>
 
 <!-- Optional JavaScript; choose one of the two! -->
 
