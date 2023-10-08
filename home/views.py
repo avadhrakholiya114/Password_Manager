@@ -6,9 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .utils import encrypt, decrypt
 from .models import user_passsword
-
-
-# from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 # password
@@ -94,6 +92,19 @@ def add_password(request):
 
 def manage(request):
     password_list = user_passsword.objects.filter(user=request.user).order_by('-created_at')
+    if request.GET.get('search'):
+        search = request.GET.get('search')
+        print(search)
+        password_list = user_passsword.objects.filter(
+            Q(username_or_email__icontains=search) |
+            Q(app_type__icontains=search) |
+            Q(website_name__icontains=search) |
+            Q(application_name__icontains=search) |
+            Q(game_name__icontains=search) |
+            Q(other_name__icontains=search)
+        )
+        return render(request, 'manage.html', {'password_list': password_list})
+
     return render(request, 'manage.html', {'password_list': password_list})
 
 
