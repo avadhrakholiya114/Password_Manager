@@ -4,7 +4,7 @@ from .forms import RegitrationForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .utils import encrypt
+from .utils import encrypt, decrypt
 from .models import user_passsword
 
 
@@ -87,6 +87,11 @@ def add_password(request):
             user_passsword.objects.create(user=request.user, username_or_email=username,
                                           password=password, app_type=application_type, other_name=other)
             messages.success(request, 'New password added...!')
-        return render(request, 'add_pass.html')
+        return redirect('/manage_password')
 
     return render(request, 'add_pass.html')
+
+
+def manage(request):
+    password_list = user_passsword.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'manage.html', {'password_list': password_list})
