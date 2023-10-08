@@ -95,3 +95,24 @@ def add_password(request):
 def manage(request):
     password_list = user_passsword.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'manage.html', {'password_list': password_list})
+
+
+def delete(request, id):
+    data = user_passsword.objects.get(id=id)
+    data.delete()
+    return redirect('/manage_password')
+
+
+def update(request, id):
+    data = user_passsword.objects.get(id=id)
+    data.password = decrypt(data.password)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = encrypt(request.POST['password'])
+
+        data.username_or_email = username
+        data.password = password
+        data.save()
+        return redirect('/manage_password')
+
+    return render(request, 'update_pass.html', {'data': data})

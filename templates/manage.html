@@ -71,18 +71,20 @@
                     <td>{{password.game_name}}</td>
                     {% elif password.other_name %}
                     <td>{{password.other_name}}</td>
+                    {%else%}
+                    <td></td>
                     {% endif %}
 
                     {% if password.website_url %}
-                    <td>{{password.website_url}}</td>
+                    <td><a href="{{password.website_url}}">{{password.website_url}}</a></td>
                     {% else %}
                     <td></td>
                     {% endif %}
 
                     <td>{{password.created_at}}</td>
                     <td>{{password.updated_at}}</td>
-                    <td>
-                        <a class="me-1 btn btn-primary mb-1" href="">Edit</a>
+                    <td class="d-flex mt-3">
+                        <a class="me-1 btn btn-primary " href="/update/{{password.id}}">Edit</a>
                         <a href="" class="btn btn-danger" data-bs-toggle="modal"
                            data-bs-target="#exampleModal">Delete</a>
                     </td>
@@ -102,7 +104,7 @@
                                 <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close
                                 </button>
-                                <a href="" type="button"
+                                <a href="/delete/{{password.id}}" type="button"
                                    class="btn btn-danger">Delete</a>
                             </div>
                         </div>
@@ -136,6 +138,9 @@
       icon.classList.add("fa-eye");
     }
   }
+
+
+
 
 
 </script>
